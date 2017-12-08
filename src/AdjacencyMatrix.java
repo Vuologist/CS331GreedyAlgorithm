@@ -19,7 +19,7 @@ public class AdjacencyMatrix {
             return denseGraph;
     }
 
-
+    //creates a sparse graph with a limit of 3 connections per node max
     private void sparseGraphGenerator(int nodes){
         sparseGraph = new int[nodes+1][nodes+1];
         Random rand = new Random();
@@ -53,6 +53,7 @@ public class AdjacencyMatrix {
 
     }
 
+    //prints graph
     private void printMatrix(int[][] graph){
         for (int i = 1; i <= graph.length-1; i++)
             System.out.print("\t" + i);

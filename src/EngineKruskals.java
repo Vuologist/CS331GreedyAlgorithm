@@ -23,6 +23,7 @@ public class EngineKruskals {
         storeMST();
     }
 
+    //finds the MST between undirect, connected, weighted nodes
     private void kruskalAlgorithm(int adjacencyMatrix[][]) {
         boolean finished = false;
         for (int source = 1; source <= numberOfVertices; source++) {
@@ -62,6 +63,8 @@ public class EngineKruskals {
                 break;
         }
     }
+
+    //store MST into an array for sorting
     private void storeMST(){
         storeMST = new int[numberOfVertices+1][numberOfVertices+1];
         for(int source = 1; source <= numberOfVertices; source++){
@@ -72,6 +75,7 @@ public class EngineKruskals {
         printMatrix(storeMST);
     }
 
+    //prints array
     private void printMatrix(int[][] graph){
         for (int i = 1; i <= graph.length-1; i++)
             System.out.print("\t" + i);
