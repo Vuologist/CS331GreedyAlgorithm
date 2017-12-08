@@ -1,25 +1,31 @@
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeMap;
 
 public class EnginePrim {
     private boolean unsettled[];
     private boolean settled[];
     private int numberOfNodes;
     private int adjacencyMatrix[][];
+    private int storeMST[][];
     private int key[];
     private int INFINITE = 0;
     private int parent[];
 
-    public EnginePrim(int numberOfNodes, int graphType)
-    {
+    public EnginePrim(int numberOfNodes, int graphType) {
         this.numberOfNodes = numberOfNodes;
         unsettled = new boolean[numberOfNodes + 1];
         settled = new boolean[numberOfNodes + 1];
         AdjacencyMatrix graph = new AdjacencyMatrix(numberOfNodes, graphType);
         adjacencyMatrix = graph.getGraph(graphType);
+        printMatrix(adjacencyMatrix);
         key = new int[numberOfNodes + 1];
         parent = new int[numberOfNodes + 1];
         primsAlgorithm(adjacencyMatrix);
+        printMatrix(adjacencyMatrix);
+        storeMST();
         printMST();
-
     }
 
     public int getUnsettledCount(boolean unsettled[]) {
@@ -80,10 +86,69 @@ public class EnginePrim {
         }
     }
 
-    public void printMST() {
-        System.out.println("SOURCE  : DESTINATION = WEIGHT");
-        for (int vertex = 2; vertex <= numberOfNodes; vertex++) {
-            System.out.println(parent[vertex] + "\t:\t" + vertex +"\t=\t"+ adjacencyMatrix[parent[vertex]][vertex]);
+    public String edgesSortedByWeight(){
+        TreeMap<Integer,String> tm = new TreeMap<Integer,String>();
+        String result = "{";
+        //locates each weight and stores within a hashtable
+        for(int i = 1; i <= numberOfNodes; i++){
+            for(int j = 1; j <= numberOfNodes; j++){
+                if(storeMST[i][j] != 0)
+                    tm.put(storeMST[i][j], Integer.toString(i) + Integer.toString(j));
+            }
         }
+
+        Set set = tm.entrySet();
+        Iterator i = set.iterator();
+        while(i.hasNext()){
+            Map.Entry me = (Map.Entry)i.next();
+            result = result + "{"
+                    + me.getValue().toString().charAt(0)
+                    + "," + me.getKey() + ","
+                    + me.getValue().toString().charAt(1)
+                    + "} ";
+        }
+        return result + "}";
+    }
+
+    public String weightOfEdgeBetweenTwoNodes(int node1, int node2){
+        if(storeMST[node1][node2] == 0)
+            return "INFINITY";
+        else
+            return Integer.toString(storeMST[node1][node2]);
+    }
+
+    //copied
+    private void printMatrix(int[][] graph){
+        for (int i = 1; i <= graph.length-1; i++)
+            System.out.print("\t" + i);
+        System.out.println();
+        for (int source = 1; source <= graph.length-1; source++) {
+            System.out.print(source + "\t");
+            for (int destination = 1; destination <= graph.length-1; destination++) {
+                System.out.print(graph[source][destination] + "\t");
+            }
+            System.out.println();
+        }
+    }
+
+    public void printMST()
+    {
+        for(int i=0; i<parent.length;i++){
+            System.out.print(parent[i] + " ");
+        }
+        /*
+        System.out.println("SOURCE  : DESTINATION = WEIGHT");
+        for (int vertex = 2; vertex <= numberOfNodes; vertex++)
+        {
+            System.out.println(parent[vertex] + "\t:\t" + vertex +"\t=\t"+ adjacencyMatrix[parent[vertex]][vertex]);
+        }*/
+    }
+
+    private void storeMST() {
+        storeMST = new int[numberOfNodes+1][numberOfNodes+1];
+        for (int z = 2; z <= numberOfNodes; z++) {
+            storeMST[parent[z]][z] = adjacencyMatrix[parent[z]][z];
+        }
+        //printMatrix(storeMST);
     }
 }
