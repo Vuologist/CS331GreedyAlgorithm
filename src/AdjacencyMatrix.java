@@ -48,9 +48,32 @@ public class AdjacencyMatrix {
         //printMatrix(sparseGraph);
     }
 
-
-    private void denseGraphGenerator(int nodes){
-
+    //copied from sparse no edits yet
+    private void denseGraphGenerator(int nodes){sparseGraph = new int[nodes+1][nodes+1];
+        Random rand = new Random();
+        int connectionDeterminer;
+        int weight;
+        int linkLimiter;
+        //adjacency matrix
+        //weight 0 is infinity
+        for(int i=1; i<=nodes; i++){
+            linkLimiter = 0;
+            for(int j=1; j<=nodes; j++){
+                connectionDeterminer = rand.nextInt(100);
+                weight = rand.nextInt(1000)+1;
+                //control amount of links to element
+                if(connectionDeterminer%2==0 && linkLimiter < 3){
+                    sparseGraph[i][j] = weight;
+                    sparseGraph[j][i] = weight;
+                    linkLimiter++;
+                }
+                if(i == j){
+                    sparseGraph[i][j] = 0;
+                    continue;
+                }
+            }
+        }
+        //printMatrix(sparseGraph);
     }
 
     //prints graph

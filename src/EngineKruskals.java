@@ -1,6 +1,4 @@
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public class EngineKruskals {
     private List<Edge> edges;
@@ -73,6 +71,30 @@ public class EngineKruskals {
             }
         }
         printMatrix(storeMST);
+    }
+
+    public String edgesSortedByWeight(){
+        TreeMap<Integer,String> tm = new TreeMap<Integer,String>();
+        String result = "{";
+        //locates each weight and stores within a hashtable
+        for(int i = 1; i <= numberOfVertices; i++){
+            for(int j = 1; j <= numberOfVertices; j++){
+                if(storeMST[i][j] != 0)
+                    tm.put(storeMST[i][j], Integer.toString(i) + Integer.toString(j));
+            }
+        }
+
+        Set set = tm.entrySet();
+        Iterator i = set.iterator();
+        while(i.hasNext()){
+            Map.Entry me = (Map.Entry)i.next();
+            result = result + "{"
+                    + me.getValue().toString().charAt(0)
+                    + "," + me.getKey() + ","
+                    + me.getValue().toString().charAt(1)
+                    + "} ";
+        }
+        return result + "}";
     }
 
     //prints array
