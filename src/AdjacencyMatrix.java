@@ -8,6 +8,7 @@ public class AdjacencyMatrix {
     public AdjacencyMatrix(int nodes, int graphType){
         if(graphType == 1) {
             sparseGraphGenerator(nodes);
+        // graphType 2
         } else
             denseGraphGenerator(nodes);
     }
@@ -15,6 +16,7 @@ public class AdjacencyMatrix {
     public int[][] getGraph(int graphType){
         if(graphType == 1)
             return sparseGraph;
+            // graphType 2
         else
             return denseGraph;
     }
@@ -48,12 +50,15 @@ public class AdjacencyMatrix {
         //printMatrix(sparseGraph);
     }
 
-    //copied from sparse no edits yet
-    private void denseGraphGenerator(int nodes){sparseGraph = new int[nodes+1][nodes+1];
+    //creates a dense graph with a limit of (nodes*(nodes-1))/2
+    //connections per node max
+    private void denseGraphGenerator(int nodes){
+        denseGraph = new int[nodes+1][nodes+1];
         Random rand = new Random();
         int connectionDeterminer;
         int weight;
         int linkLimiter;
+        int edgesCount = (nodes*(nodes-1))/2;
         //adjacency matrix
         //weight 0 is infinity
         for(int i=1; i<=nodes; i++){
@@ -62,18 +67,18 @@ public class AdjacencyMatrix {
                 connectionDeterminer = rand.nextInt(100);
                 weight = rand.nextInt(1000)+1;
                 //control amount of links to element
-                if(connectionDeterminer%2==0 && linkLimiter < 3){
-                    sparseGraph[i][j] = weight;
-                    sparseGraph[j][i] = weight;
+                if(connectionDeterminer%2==0 && linkLimiter < edgesCount){
+                    denseGraph[i][j] = weight;
+                    denseGraph[j][i] = weight;
                     linkLimiter++;
                 }
                 if(i == j){
-                    sparseGraph[i][j] = 0;
+                    denseGraph[i][j] = 0;
                     continue;
                 }
             }
         }
-        //printMatrix(sparseGraph);
+        //printMatrix(denseGraph);
     }
 
     //prints graph
