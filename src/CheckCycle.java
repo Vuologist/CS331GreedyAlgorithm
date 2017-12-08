@@ -8,11 +8,13 @@ public class CheckCycle {
         stack = new Stack<Integer>();
     }
 
-    //edit this to private*****************
-    public boolean checkCycle(int adjacency_matrix[][], int source) {
+    public boolean getCheckCyle(int adjacency_matrix[][], int source){
+            return checkCycle(adjacency_matrix, source);
+    }
+
+    private boolean checkCycle(int adjacency_matrix[][], int source) {
         boolean cyclepresent = false;
         int number_of_nodes = adjacency_matrix[source].length - 1;
-
         adjacencyMatrix = new int[number_of_nodes + 1][number_of_nodes + 1];
         for (int sourcevertex = 1; sourcevertex <= number_of_nodes; sourcevertex++) {
             for (int destinationvertex = 1; destinationvertex <= number_of_nodes; destinationvertex++) {
