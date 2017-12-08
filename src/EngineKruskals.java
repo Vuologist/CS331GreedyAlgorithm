@@ -97,6 +97,13 @@ public class EngineKruskals {
         return result + "}";
     }
 
+    public String weightOfEdgeBetweenTwoNodes(int node1, int node2){
+        if(storeMST[node1][node2] == 0)
+            return "INFINITY";
+        else
+            return Integer.toString(storeMST[node1][node2]);
+    }
+
     //prints array
     private void printMatrix(int[][] graph){
         for (int i = 1; i <= graph.length-1; i++)
