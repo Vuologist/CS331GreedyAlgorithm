@@ -2,30 +2,41 @@ import java.util.Random;
 
 public class AdjacencyMatrix {
 
-    private int[][] sparseGraph;
-    private int[][] denseGraph;
-    private int[][] sparseGraphPrim;
+    private int[][] sparseGraphKruskals;
+    private int[][] denseGraphKruskals;
+    private int[][] sparseGraphPrims;
+    private int[][] denseGraphKPrims;
 
-    public AdjacencyMatrix(int nodes, int graphType, String graph){
-        if(graphType == 1 && graph.equals("prims")) {
-            //sparseGraphGenerator(nodes);
-            sparseGraphGeneratorPrim(nodes);
-            // graphType 2
+    //graph type 1 is sparse
+    //graph type 2 is dense
+    public AdjacencyMatrix(int nodes, int graphType, String graphName){
+        if(graphType == 1 && graphName.equals("prims")) {
+            sparseGraphGeneratorPrims(nodes);
+        } else if (graphType == 1 && graphName.equals("kruskals")) {
+            sparseGraphGeneratorKruskals(nodes);
+        } else if (graphType == 2 && graphName.equals("prims")) {
+            denseGraphGeneratorPrims(nodes);
+        } else if (graphType == 1 && graphName.equals("kruskals")){
+            denseGraphGeneratorKruskals(nodes);
+        }
+    }
+
+    public int[][] getGraph(int graphType, String graphName){
+        if(graphType == 1 && graphName.equals("prims")) {
+            return  sparseGraphPrims;
+        } else if (graphType == 1 && graphName.equals("kruskals")) {
+            return sparseGraphKruskals;
+        } else if (graphType == 2 && graphName.equals("prims")) {
+            return denseGraphKPrims;
+        } else if (graphType == 1 && graphName.equals("kruskals")){
+            return  denseGraphKruskals;
         } else
-            denseGraphGenerator(nodes);
-    }
-
-    public int[][] getGraph(int graphType){
-        if(graphType == 1)
-            return sparseGraphPrim;
-            // graphType 2
-        else
-            return denseGraph;
+            return null;
     }
 
     //creates a sparse graph with a limit of 3 connections per node max
-    private void sparseGraphGenerator(int nodes){
-        sparseGraph = new int[nodes+1][nodes+1];
+    private void sparseGraphGeneratorKruskals(int nodes){
+        sparseGraphKruskals = new int[nodes+1][nodes+1];
         Random rand = new Random();
         int connectionDeterminer;
         int weight;
@@ -39,21 +50,21 @@ public class AdjacencyMatrix {
                 weight = rand.nextInt(1000)+1;
                 //control amount of links to element
                 if(connectionDeterminer%2==0 && linkLimiter < 3){
-                    sparseGraph[i][j] = weight;
-                    sparseGraph[j][i] = weight;
+                    sparseGraphKruskals[i][j] = weight;
+                    sparseGraphKruskals[j][i] = weight;
                     linkLimiter++;
                 }
                 if(i == j){
-                    sparseGraph[i][j] = 0;
+                    sparseGraphKruskals[i][j] = 0;
                     continue;
                 }
             }
         }
-        //printMatrix(sparseGraph);
+        //printMatrix(sparseGraphKruskals);
     }
     //creates a sparse graph with a limit of 3 connections per node max
-    private void sparseGraphGeneratorPrim(int nodes){
-        sparseGraphPrim = new int[nodes+1][nodes+1];
+    private void sparseGraphGeneratorPrims(int nodes){
+        sparseGraphPrims = new int[nodes+1][nodes+1];
         Random rand = new Random();
         int connectionDeterminer;
         int weight;
@@ -67,25 +78,25 @@ public class AdjacencyMatrix {
                 weight = rand.nextInt(1000)+1;
                 //control amount of links to element
                 if(connectionDeterminer%2==0 && linkLimiter < 3){
-                    sparseGraphPrim[i][j] = weight;
-                    sparseGraphPrim[j][i] = weight;
+                    sparseGraphPrims[i][j] = weight;
+                    sparseGraphPrims[j][i] = weight;
                     linkLimiter++;
                 }
                 if(i == j){
-                    sparseGraphPrim[i][j] = 0;
+                    sparseGraphPrims[i][j] = 0;
                     continue;
-                } else if(sparseGraphPrim[i][j] == 0){
-                    sparseGraphPrim[i][j] = 2000;
+                } else if(sparseGraphPrims[i][j] == 0){
+                    sparseGraphPrims[i][j] = 2000;
                 }
             }
         }
-        //printMatrix(sparseGraphPrim);
+        //printMatrix(sparseGraphPrims);
     }
 
     //creates a dense graph with a limit of (nodes*(nodes-1))/2
     //connections per node max
-    private void denseGraphGenerator(int nodes){
-        denseGraph = new int[nodes+1][nodes+1];
+    private void denseGraphGeneratorKruskals(int nodes){
+        denseGraphKruskals = new int[nodes+1][nodes+1];
         Random rand = new Random();
         int connectionDeterminer;
         int weight;
@@ -100,17 +111,50 @@ public class AdjacencyMatrix {
                 weight = rand.nextInt(1000)+1;
                 //control amount of links to element
                 if(connectionDeterminer%2==0 && linkLimiter < edgesCount){
-                    denseGraph[i][j] = weight;
-                    denseGraph[j][i] = weight;
+                    denseGraphKruskals[i][j] = weight;
+                    denseGraphKruskals[j][i] = weight;
                     linkLimiter++;
                 }
                 if(i == j){
-                    denseGraph[i][j] = 0;
+                    denseGraphKruskals[i][j] = 0;
                     continue;
                 }
             }
         }
-        //printMatrix(denseGraph);
+        //printMatrix(denseGraphKruskals);
+    }
+
+    //creates a dense graph with a limit of (nodes*(nodes-1))/2
+    //connections per node max
+    private void denseGraphGeneratorPrims(int nodes){
+        denseGraphKPrims = new int[nodes+1][nodes+1];
+        Random rand = new Random();
+        int connectionDeterminer;
+        int weight;
+        int linkLimiter;
+        int edgesCount = (nodes*(nodes-1))/2;
+        //adjacency matrix
+        //weight 0 is infinity
+        for(int i=1; i<=nodes; i++){
+            linkLimiter = 0;
+            for(int j=1; j<=nodes; j++){
+                connectionDeterminer = rand.nextInt(100);
+                weight = rand.nextInt(1000)+1;
+                //control amount of links to element
+                if(connectionDeterminer%2==0 && linkLimiter < edgesCount){
+                    denseGraphKPrims[i][j] = weight;
+                    denseGraphKPrims[j][i] = weight;
+                    linkLimiter++;
+                }
+                if(i == j){
+                    denseGraphKPrims[i][j] = 0;
+                    continue;
+                } else if(denseGraphKPrims[i][j] == 0){
+                    denseGraphKPrims[i][j] = 2000;
+                }
+            }
+        }
+        //printMatrix(denseGraphKPrims);
     }
 
     //prints graph

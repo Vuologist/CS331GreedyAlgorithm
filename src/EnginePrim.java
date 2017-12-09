@@ -20,7 +20,7 @@ public class EnginePrim {
         key = new int[numOfNodes + 1];
         parent = new int[numOfNodes + 1];
         AdjacencyMatrix graph = new AdjacencyMatrix(numOfNodes, graphType, "prims");
-        adjacencyMatrix = graph.getGraph(graphType);
+        adjacencyMatrix = graph.getGraph(graphType, "prims");
         printMatrix(adjacencyMatrix);
         primsAlgorithm(adjacencyMatrix);
         //printMatrix(adjacencyMatrix);
