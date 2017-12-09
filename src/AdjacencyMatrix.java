@@ -16,7 +16,7 @@ public class AdjacencyMatrix {
             sparseGraphGeneratorKruskals(nodes);
         } else if (graphType == 2 && graphName.equals("prims")) {
             denseGraphGeneratorPrims(nodes);
-        } else if (graphType == 1 && graphName.equals("kruskals")){
+        } else if (graphType == 2 && graphName.equals("kruskals")){
             denseGraphGeneratorKruskals(nodes);
         }
     }
@@ -28,7 +28,7 @@ public class AdjacencyMatrix {
             return sparseGraphKruskals;
         } else if (graphType == 2 && graphName.equals("prims")) {
             return denseGraphPrims;
-        } else if (graphType == 1 && graphName.equals("kruskals")){
+        } else if (graphType == 2 && graphName.equals("kruskals")){
             return  denseGraphKruskals;
         } else
             return null;

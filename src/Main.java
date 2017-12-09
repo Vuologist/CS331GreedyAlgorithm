@@ -7,8 +7,8 @@ public class Main {
         //EngineKruskals kruskalsSparse = new EngineKruskals(500, 1);
         //EngineKruskals kruskalsSparse = new EngineKruskals(1000, 1);
         //EngineKruskals kruskalsSparse = new EngineKruskals(5000, 1);
-        EngineKruskals kruskalsSparse = new EngineKruskals(10000, 1);
-        kruskalsSparse.edgesSortedByWeight();
+        //EngineKruskals kruskalsSparse = new EngineKruskals(10000, 1);
+        //kruskalsSparse.edgesSortedByWeight();
         //System.out.println("Format of result: {node, weight, node}");
         //System.out.println(kruskalsSparse.edgesSortedByWeight());
         /*
@@ -29,10 +29,10 @@ public class Main {
 
         //EngineKruskals kruskalsDense = new EngineKruskals(100, 2);
         //EngineKruskals kruskalsDense = new EngineKruskals(500, 2);
-        //EngineKruskals kruskalsDense = new EngineKruskals(1000, 2);
+        EngineKruskals kruskalsDense = new EngineKruskals(1000, 2);
         //EngineKruskals kruskalsDense = new EngineKruskals(5000, 2);
         //EngineKruskals kruskalsDense = new EngineKruskals(10000, 2);
-        //kruskalsDense.edgesSortedByWeight();
+        kruskalsDense.edgesSortedByWeight();
         //System.out.println("Format of result: {node, weight, node}");
         //System.out.println(kruskalsDense.edgesSortedByWeight());
         /*
