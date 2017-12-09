@@ -15,8 +15,8 @@ public class EngineKruskals {
         edges = new LinkedList<Edge>();
         visited = new int[this.numberOfVertices + 1];
         spanningTree = new int[numberOfVertices + 1][numberOfVertices + 1];
-        //AdjacencyMatrix graph = new AdjacencyMatrix(nodes, graphType);
-        //adjacencyMatrix = graph.getGraph(graphType);
+        AdjacencyMatrix graph = new AdjacencyMatrix(nodes, graphType, "kruskals");
+        adjacencyMatrix = graph.getGraph(graphType, "kruskals");
         kruskalAlgorithm(adjacencyMatrix);
         storeMST();
     }
