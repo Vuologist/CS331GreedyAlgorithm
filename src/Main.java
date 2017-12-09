@@ -5,8 +5,9 @@ public class Main {
         //EngineKruskals kruskals = new EngineKruskals(10, 1);
         //EngineKruskals kruskals = new EngineKruskals(50, 2);
         EnginePrim prim = new EnginePrim(10,2);
+        System.out.println();
         System.out.println("Format of result: {node, weight, node}");
-        //System.out.println(prim.edgesSortedByWeight());
+        System.out.println(prim.edgesSortedByWeight());
 
         //System.out.println("Format of result: {node, weight, node}");
         //System.out.println(kruskals.edgesSortedByWeight());

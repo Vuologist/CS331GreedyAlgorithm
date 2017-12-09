@@ -21,11 +21,11 @@ public class EnginePrim {
         parent = new int[numOfNodes + 1];
         AdjacencyMatrix graph = new AdjacencyMatrix(numOfNodes, graphType, "prims");
         adjacencyMatrix = graph.getGraph(graphType, "prims");
-        printMatrix(adjacencyMatrix);
+        //printMatrix(adjacencyMatrix);
         primsAlgorithm(adjacencyMatrix);
         //printMatrix(adjacencyMatrix);
-        //storeMST();
-        printMST();
+        storeMST();
+        //printMST();
     }
 
     public int getUnsettledCount(boolean unsettled[]) {
@@ -154,6 +154,6 @@ public class EnginePrim {
         for (int z = 2; z <= numOfNodes; z++) {
             storeMST[parent[z]][z] = adjacencyMatrix[parent[z]][z];
         }
-        //printMatrix(storeMST);
+        printMatrix(storeMST);
     }
 }
