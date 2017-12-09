@@ -6,25 +6,25 @@ import java.util.TreeMap;
 public class EnginePrim {
     private boolean unsettled[];
     private boolean settled[];
-    private int numberOfNodes;
+    private int numOfNodes;
     private int adjacencyMatrix[][];
     private int storeMST[][];
     private int key[];
-    private int INFINITE = 0;
+    private int INFINITE = 999;
     private int parent[];
 
     public EnginePrim(int numberOfNodes, int graphType) {
-        this.numberOfNodes = numberOfNodes;
-        unsettled = new boolean[numberOfNodes + 1];
-        settled = new boolean[numberOfNodes + 1];
-        AdjacencyMatrix graph = new AdjacencyMatrix(numberOfNodes, graphType);
+        this.numOfNodes = numberOfNodes;
+        unsettled = new boolean[numOfNodes + 1];
+        settled = new boolean[numOfNodes + 1];
+        key = new int[numOfNodes + 1];
+        parent = new int[numOfNodes + 1];
+        AdjacencyMatrix graph = new AdjacencyMatrix(numOfNodes, graphType);
         adjacencyMatrix = graph.getGraph(graphType);
         printMatrix(adjacencyMatrix);
-        key = new int[numberOfNodes + 1];
-        parent = new int[numberOfNodes + 1];
         primsAlgorithm(adjacencyMatrix);
-        printMatrix(adjacencyMatrix);
-        storeMST();
+        //printMatrix(adjacencyMatrix);
+        //storeMST();
         printMST();
     }
 
@@ -39,13 +39,13 @@ public class EnginePrim {
 
     public void primsAlgorithm(int adjacencyMatrix[][]) {
         int evaluationVertex;
-        for (int source = 1; source <= numberOfNodes; source++) {
-            for (int destination = 1; destination <= numberOfNodes; destination++) {
-                this.adjacencyMatrix[source][destination] = adjacencyMatrix[source][destination];
-            }
-        }
+//        for (int source = 1; source <= numOfNodes; source++) {
+//            for (int destination = 1; destination <= numOfNodes; destination++) {
+//                this.adjacencyMatrix[source][destination] = adjacencyMatrix[source][destination];
+//            }
+//        }
 
-        for (int index = 1; index <= numberOfNodes; index++) {
+        for (int index = 1; index <= numOfNodes; index++) {
             key[index] = INFINITE;
         }
         key[1] = 0;
@@ -63,7 +63,7 @@ public class EnginePrim {
     private int getMimumKeyVertexFromUnsettled(boolean[] unsettled2) {
         int min = Integer.MAX_VALUE;
         int node = 0;
-        for (int vertex = 1; vertex <= numberOfNodes; vertex++) {
+        for (int vertex = 1; vertex <= numOfNodes; vertex++) {
             if (unsettled[vertex] == true && key[vertex] < min) {
                 node = vertex;
                 min = key[vertex];
@@ -73,7 +73,7 @@ public class EnginePrim {
     }
 
     public void evaluateNeighbours(int evaluationVertex) {
-        for (int destinationvertex = 1; destinationvertex <= numberOfNodes; destinationvertex++) {
+        for (int destinationvertex = 1; destinationvertex <= numOfNodes; destinationvertex++) {
             if (settled[destinationvertex] == false) {
                 if (adjacencyMatrix[evaluationVertex][destinationvertex] != INFINITE) {
                     if (adjacencyMatrix[evaluationVertex][destinationvertex] < key[destinationvertex]) {
@@ -90,8 +90,8 @@ public class EnginePrim {
         TreeMap<Integer,String> tm = new TreeMap<Integer,String>();
         String result = "{";
         //locates each weight and stores within a hashtable
-        for(int i = 1; i <= numberOfNodes; i++){
-            for(int j = 1; j <= numberOfNodes; j++){
+        for(int i = 1; i <= numOfNodes; i++){
+            for(int j = 1; j <= numOfNodes; j++){
                 if(storeMST[i][j] != 0)
                     tm.put(storeMST[i][j], Integer.toString(i) + Integer.toString(j));
             }
@@ -119,34 +119,39 @@ public class EnginePrim {
 
     //copied
     private void printMatrix(int[][] graph){
-        for (int i = 1; i <= graph.length-1; i++)
-            System.out.print("\t" + i);
-        System.out.println();
-        for (int source = 1; source <= graph.length-1; source++) {
-            System.out.print(source + "\t");
-            for (int destination = 1; destination <= graph.length-1; destination++) {
-                System.out.print(graph[source][destination] + "\t");
-            }
+//        for (int i = 1; i <= graph.length-1; i++)
+//            System.out.print("\t" + i);
+//        System.out.println();
+//        for (int source = 1; source <= graph.length-1; source++) {
+//            System.out.print(source + "\t");
+//            for (int destination = 1; destination <= graph.length-1; destination++) {
+//                System.out.print(graph[source][destination] + "\t");
+//            }
+//            System.out.println();
+//        }
+        for (int i = 1; i <= graph.length-1; i++){
             System.out.println();
+            for(int j = 1; j <= graph.length-1; j++)
+                System.out.print(graph[i][j] + "\t");
         }
     }
 
     public void printMST()
-    {
+    {   /*
         for(int i=0; i<parent.length;i++){
             System.out.print(parent[i] + " ");
-        }
-        /*
+        }*/
+
         System.out.println("SOURCE  : DESTINATION = WEIGHT");
-        for (int vertex = 2; vertex <= numberOfNodes; vertex++)
+        for (int vertex = 2; vertex <= numOfNodes; vertex++)
         {
             System.out.println(parent[vertex] + "\t:\t" + vertex +"\t=\t"+ adjacencyMatrix[parent[vertex]][vertex]);
-        }*/
+        }
     }
 
     private void storeMST() {
-        storeMST = new int[numberOfNodes+1][numberOfNodes+1];
-        for (int z = 2; z <= numberOfNodes; z++) {
+        storeMST = new int[numOfNodes+1][numOfNodes+1];
+        for (int z = 2; z <= numOfNodes; z++) {
             storeMST[parent[z]][z] = adjacencyMatrix[parent[z]][z];
         }
         //printMatrix(storeMST);
