@@ -2,12 +2,20 @@ import java.util.Scanner;
 public class Main {
     public static void main(String args[]){
         Scanner kb = new Scanner(System.in);
-        //EngineKruskals kruskals = new EngineKruskals(10, 1);
-        //EngineKruskals kruskals = new EngineKruskals(50, 2);
-        EnginePrim prim = new EnginePrim(10,2);
-        System.out.println();
-        System.out.println("Format of result: {node, weight, node}");
-        System.out.println(prim.edgesSortedByWeight());
+
+
+
+        //EngineKruskals kruskalsSparse = new EngineKruskals(10, 1);
+        //EngineKruskals kruskalsDense = new EngineKruskals(50, 2);
+        //System.out.println(kruskalsSparse.edgesSortedByWeight());
+        //System.out.println(kruskalsDense.edgesSortedByWeight());
+
+        EnginePrim primsSparse = new EnginePrim(10,1);
+        EnginePrim primsDense = new EnginePrim(10,2);
+        //System.out.println("Format of result: {node, weight, node}");
+        System.out.println(primsSparse.edgesSortedByWeight());
+        System.out.println(primsDense.edgesSortedByWeight());
+
 
         //System.out.println("Format of result: {node, weight, node}");
         //System.out.println(kruskals.edgesSortedByWeight());

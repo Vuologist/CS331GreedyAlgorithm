@@ -5,7 +5,7 @@ public class AdjacencyMatrix {
     private int[][] sparseGraphKruskals;
     private int[][] denseGraphKruskals;
     private int[][] sparseGraphPrims;
-    private int[][] denseGraphKPrims;
+    private int[][] denseGraphPrims;
 
     //graph type 1 is sparse
     //graph type 2 is dense
@@ -27,7 +27,7 @@ public class AdjacencyMatrix {
         } else if (graphType == 1 && graphName.equals("kruskals")) {
             return sparseGraphKruskals;
         } else if (graphType == 2 && graphName.equals("prims")) {
-            return denseGraphKPrims;
+            return denseGraphPrims;
         } else if (graphType == 1 && graphName.equals("kruskals")){
             return  denseGraphKruskals;
         } else
@@ -127,7 +127,7 @@ public class AdjacencyMatrix {
     //creates a dense graph with a limit of (nodes*(nodes-1))/2
     //connections per node max
     private void denseGraphGeneratorPrims(int nodes){
-        denseGraphKPrims = new int[nodes+1][nodes+1];
+        denseGraphPrims = new int[nodes+1][nodes+1];
         Random rand = new Random();
         int connectionDeterminer;
         int weight;
@@ -142,32 +142,32 @@ public class AdjacencyMatrix {
                 weight = rand.nextInt(1000)+1;
                 //control amount of links to element
                 if(connectionDeterminer%2==0 && linkLimiter < edgesCount){
-                    denseGraphKPrims[i][j] = weight;
-                    denseGraphKPrims[j][i] = weight;
+                    denseGraphPrims[i][j] = weight;
+                    denseGraphPrims[j][i] = weight;
                     linkLimiter++;
                 }
                 if(i == j){
-                    denseGraphKPrims[i][j] = 0;
+                    denseGraphPrims[i][j] = 0;
                     continue;
-                } else if(denseGraphKPrims[i][j] == 0){
-                    denseGraphKPrims[i][j] = 2000;
+                } else if(denseGraphPrims[i][j] == 0){
+                    denseGraphPrims[i][j] = 2000;
                 }
             }
         }
-        //printMatrix(denseGraphKPrims);
+        //printMatrix(denseGraphPrims);
     }
 
-    //prints graph
-    private void printMatrix(int[][] graph){
-        for (int i = 1; i <= graph.length-1; i++)
-            System.out.print("\t" + i);
-        System.out.println();
-        for (int source = 1; source <= graph.length-1; source++) {
-            System.out.print(source + "\t");
-            for (int destination = 1; destination <= graph.length-1; destination++) {
-                System.out.print(graph[source][destination] + "\t");
-            }
-            System.out.println();
-        }
-    }
+//    //prints graph
+//    private void printMatrix(int[][] graph){
+//        for (int i = 1; i <= graph.length-1; i++)
+//            System.out.print("\t" + i);
+//        System.out.println();
+//        for (int source = 1; source <= graph.length-1; source++) {
+//            System.out.print(source + "\t");
+//            for (int destination = 1; destination <= graph.length-1; destination++) {
+//                System.out.print(graph[source][destination] + "\t");
+//            }
+//            System.out.println();
+//        }
+//    }
 }

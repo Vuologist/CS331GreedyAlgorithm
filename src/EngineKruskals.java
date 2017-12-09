@@ -70,7 +70,7 @@ public class EngineKruskals {
                 storeMST[source][destination] = spanningTree[source][destination];
             }
         }
-        printMatrix(storeMST);
+        //printMatrix(storeMST);
     }
 
     public String edgesSortedByWeight(){
@@ -104,17 +104,17 @@ public class EngineKruskals {
             return Integer.toString(storeMST[node1][node2]);
     }
 
-    //prints array
-    private void printMatrix(int[][] graph){
-        for (int i = 1; i <= graph.length-1; i++)
-            System.out.print("\t" + i);
-        System.out.println();
-        for (int source = 1; source <= graph.length-1; source++) {
-            System.out.print(source + "\t");
-            for (int destination = 1; destination <= graph.length-1; destination++) {
-                System.out.print(graph[source][destination] + "\t");
-            }
-            System.out.println();
-        }
-    }
+//    //prints array
+//    private void printMatrix(int[][] graph){
+//        for (int i = 1; i <= graph.length-1; i++)
+//            System.out.print("\t" + i);
+//        System.out.println();
+//        for (int source = 1; source <= graph.length-1; source++) {
+//            System.out.print(source + "\t");
+//            for (int destination = 1; destination <= graph.length-1; destination++) {
+//                System.out.print(graph[source][destination] + "\t");
+//            }
+//            System.out.println();
+//        }
+//    }
 }

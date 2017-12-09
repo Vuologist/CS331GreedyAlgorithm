@@ -117,43 +117,29 @@ public class EnginePrim {
             return Integer.toString(storeMST[node1][node2]);
     }
 
-    //copied
-    private void printMatrix(int[][] graph){
-//        for (int i = 1; i <= graph.length-1; i++)
-//            System.out.print("\t" + i);
-//        System.out.println();
-//        for (int source = 1; source <= graph.length-1; source++) {
-//            System.out.print(source + "\t");
-//            for (int destination = 1; destination <= graph.length-1; destination++) {
-//                System.out.print(graph[source][destination] + "\t");
-//            }
+//    private void printMatrix(int[][] graph){
+////        for (int i = 1; i <= graph.length-1; i++)
+////            System.out.print("\t" + i);
+////        System.out.println();
+////        for (int source = 1; source <= graph.length-1; source++) {
+////            System.out.print(source + "\t");
+////            for (int destination = 1; destination <= graph.length-1; destination++) {
+////                System.out.print(graph[source][destination] + "\t");
+////            }
+////            System.out.println();
+////        }
+//        for (int i = 1; i <= graph.length-1; i++){
 //            System.out.println();
+//            for(int j = 1; j <= graph.length-1; j++)
+//                System.out.print(graph[i][j] + "\t");
 //        }
-        for (int i = 1; i <= graph.length-1; i++){
-            System.out.println();
-            for(int j = 1; j <= graph.length-1; j++)
-                System.out.print(graph[i][j] + "\t");
-        }
-    }
-
-    public void printMST()
-    {   /*
-        for(int i=0; i<parent.length;i++){
-            System.out.print(parent[i] + " ");
-        }*/
-
-        System.out.println("SOURCE  : DESTINATION = WEIGHT");
-        for (int vertex = 2; vertex <= numOfNodes; vertex++)
-        {
-            System.out.println(parent[vertex] + "\t:\t" + vertex +"\t=\t"+ adjacencyMatrix[parent[vertex]][vertex]);
-        }
-    }
+//    }
 
     private void storeMST() {
         storeMST = new int[numOfNodes+1][numOfNodes+1];
         for (int z = 2; z <= numOfNodes; z++) {
             storeMST[parent[z]][z] = adjacencyMatrix[parent[z]][z];
         }
-        printMatrix(storeMST);
+        //printMatrix(storeMST);
     }
 }
