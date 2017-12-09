@@ -4,18 +4,20 @@ public class AdjacencyMatrix {
 
     private int[][] sparseGraph;
     private int[][] denseGraph;
+    private int[][] sparseGraphPrim;
 
-    public AdjacencyMatrix(int nodes, int graphType){
-        if(graphType == 1) {
-            sparseGraphGenerator(nodes);
-        // graphType 2
+    public AdjacencyMatrix(int nodes, int graphType, String graph){
+        if(graphType == 1 && graph.equals("prims")) {
+            //sparseGraphGenerator(nodes);
+            sparseGraphGeneratorPrim(nodes);
+            // graphType 2
         } else
             denseGraphGenerator(nodes);
     }
 
     public int[][] getGraph(int graphType){
         if(graphType == 1)
-            return sparseGraph;
+            return sparseGraphPrim;
             // graphType 2
         else
             return denseGraph;
@@ -48,6 +50,36 @@ public class AdjacencyMatrix {
             }
         }
         //printMatrix(sparseGraph);
+    }
+    //creates a sparse graph with a limit of 3 connections per node max
+    private void sparseGraphGeneratorPrim(int nodes){
+        sparseGraphPrim = new int[nodes+1][nodes+1];
+        Random rand = new Random();
+        int connectionDeterminer;
+        int weight;
+        int linkLimiter;
+        //adjacency matrix
+        //weight 0 is infinity
+        for(int i=1; i<=nodes; i++){
+            linkLimiter = 0;
+            for(int j=1; j<=nodes; j++){
+                connectionDeterminer = rand.nextInt(100);
+                weight = rand.nextInt(1000)+1;
+                //control amount of links to element
+                if(connectionDeterminer%2==0 && linkLimiter < 3){
+                    sparseGraphPrim[i][j] = weight;
+                    sparseGraphPrim[j][i] = weight;
+                    linkLimiter++;
+                }
+                if(i == j){
+                    sparseGraphPrim[i][j] = 0;
+                    continue;
+                } else if(sparseGraphPrim[i][j] == 0){
+                    sparseGraphPrim[i][j] = 2000;
+                }
+            }
+        }
+        //printMatrix(sparseGraphPrim);
     }
 
     //creates a dense graph with a limit of (nodes*(nodes-1))/2

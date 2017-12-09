@@ -10,7 +10,7 @@ public class EnginePrim {
     private int adjacencyMatrix[][];
     private int storeMST[][];
     private int key[];
-    private int INFINITE = 999;
+    private int INFINITE = 2000;
     private int parent[];
 
     public EnginePrim(int numberOfNodes, int graphType) {
@@ -19,7 +19,7 @@ public class EnginePrim {
         settled = new boolean[numOfNodes + 1];
         key = new int[numOfNodes + 1];
         parent = new int[numOfNodes + 1];
-        AdjacencyMatrix graph = new AdjacencyMatrix(numOfNodes, graphType);
+        AdjacencyMatrix graph = new AdjacencyMatrix(numOfNodes, graphType, "prims");
         adjacencyMatrix = graph.getGraph(graphType);
         printMatrix(adjacencyMatrix);
         primsAlgorithm(adjacencyMatrix);
